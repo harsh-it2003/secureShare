@@ -51,7 +51,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     const password = req.body.password;
     const fileInfo = {
         filename: file.filename,
-        filePath: `${process.env.URL}/uploads/${file.filename}`,
+        filePath: `${req.protocol}://${req.headers.host}/uploads/${file.filename}`,
     };
     if (password) {
         fileInfo.password = await bcrypt.hash(password, 10);
@@ -59,7 +59,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     const doc = new File(fileInfo);
     doc.save()
         .then(() => {
-            const url = `${process.env.URL}/${doc.id}`;
+            const url = `${req.protocol}://${req.headers.host}/${doc.id}`;
             const data = {
                 link: url
             };
