@@ -65,7 +65,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     const doc = new File(fileInfo);
     doc.save()
         .then(() => {
-            const url = process.env.URL + doc.id;
+            const url = process.env.URL + '/' + doc.id;
             const data = {
                 link: url
             }
