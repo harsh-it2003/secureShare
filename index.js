@@ -45,6 +45,7 @@ const storage = multer.diskStorage({
     }
 })
 
+
 const upload = multer({ storage: storage });
 
 app.get('/', (req, res) => {
@@ -64,7 +65,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     const doc = new File(fileInfo);
     doc.save()
         .then(() => {
-            const url = 'http://localhost:3000/' + doc.id;
+            const url = process.env.URL + doc.id;
             const data = {
                 link: url
             }
